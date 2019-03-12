@@ -1,22 +1,35 @@
 import React, { Component } from "react";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import MenuItem from "@material-ui/core/MenuItem";
+
 export default class LocomotionItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      minutes: 0
+      minutes: 0,
+      power: this.props.power
       // "DataSource" is some global data source
     };
   }
   onChangeMinutes = ev => {
-    this.setState({ minutes: ev.target.value });
+    this.setState({ minutes: ev.target.value }, this.calculate);
+  };
+  calculate = () => {
+    const { minutes, power } = this.state;
+    const result = ((minutes * 31) / 60) * power * 365;
+    this.setState(
+      {
+        result: result
+      },
+      this.props.onResultChange(result)
+    );
   };
   //   onChangeAmount = ev => {
   //     this.setState({ amount: ev.target.value });
   //   };
   render() {
-    let { ranges, name, power } = this.props;
+    let { ranges, name } = this.props;
     return (
       <div
         className="itemContainer"
@@ -29,19 +42,28 @@ export default class LocomotionItem extends Component {
         }}
       >
         <h3>{name}:</h3>
+
         <TextField
           style={{
             marginLeft: 10
           }}
-          id="outlined-adornment-weight"
+          select
           variant="outlined"
-          label="Horas de uso"
+          helperText={name}
           value={this.state.minutes}
           onChange={this.onChangeMinutes}
           InputProps={{
-            endAdornment: <InputAdornment position="end">Horas</InputAdornment>
+            startAdornment: (
+              <InputAdornment position="start">Minutos</InputAdornment>
+            )
           }}
-        />
+        >
+          {ranges.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
       </div>
     );
   }

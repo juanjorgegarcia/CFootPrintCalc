@@ -7,49 +7,51 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { FormHelperText } from "@material-ui/core";
 import EletronicItem from "./EletronicItem";
 import LocomotionItem from "./LocomotionItem";
-import Button from "@material-ui/core/Button";
 
-const ranges = [
-  {
-    value: "0",
-    label: "0"
-  },
-  {
-    value: "1",
-    label: "1"
-  },
-  {
-    value: "2",
-    label: "2"
-  }
-];
+const ranges = [...Array(10).keys()].map(i => ({ value: i, label: i + "" }));
+
 const EletronicItems = [
   { name: "Ar Condicionado", power: 5 },
-  { name: "Aparelho de Som", power: 1500 }
+  { name: "Aparelho de Som", power: 1500 },
+  { name: "Aspirador de Pó", power: 1000 },
+  { name: "Bomba d'água", power: 300 },
+  { name: "Cafeteira Elétrica", power: 1000 },
+  { name: "Chuveiro Elétrico", power: 4800 },
+  { name: "Computador", power: 250 },
+  { name: "Ferro Elétrico", power: 1000 },
+  { name: "Microondas", power: 1300 },
+  { name: "Freezer", power: 400 },
+  { name: "Geladeira 1 Porta", power: 200 },
+  { name: "Geladeira 2 Portas", power: 300 },
+  { name: "Lavadora de Louça", power: 1500 },
+  { name: "Lavadora de Roupa", power: 530 },
+  { name: "Liquidificador", power: 350 },
+  { name: "Secador de Cabelo", power: 900 },
+  { name: "Televisão", power: 90 },
+  { name: "Ventilador Portátil", power: 75 },
+  { name: "Ventilador de Teto", power: 200 }
 ];
 const LocomotionItems = [
-  { name: "Onibus", power: 5 },
-  { name: "Carro", power: 1500 }
+  { name: "Carro a Etanol", power: 0.152 },
+  { name: "Carro a Gasolina", power: 0.172 },
+  { name: "Carro a GNV", power: 0.13 },
+  { name: "Moto", power: 0.0616 },
+  { name: "Onibus", power: 2.27 / 50 },
+  { name: "Trem/Metro", power: 0.002 }
 ];
-
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       result: null
-      // "DataSource" is some global data source
     };
   }
   handleChange = prop => event => {
     this.setState({ [prop]: event.target.value });
   };
 
-  handleClickShowPassword = () => {
-    this.setState(state => ({ showPassword: !state.showPassword }));
-  };
-  calculate = () => {
-    this.setState({ result: 20 });
-    console.log(this.state.result);
+  handleResult = res => {
+    this.setState(state => ({ result: this.state.result + res }));
   };
   render() {
     const { result } = this.state;
@@ -67,17 +69,27 @@ class App extends Component {
       >
         <h1>Eletronicos:</h1>
         {EletronicItems.map((el, index) => (
-          <EletronicItem key={index} name={el.name} ranges={ranges} />
+          <EletronicItem
+            key={index}
+            name={el.name}
+            ranges={ranges}
+            power={el.power}
+            onResultChange={this.handleResult}
+          />
         ))}
         <h1>Locomoção:</h1>
 
         {LocomotionItems.map((el, index) => (
-          <LocomotionItem key={index} name={el.name} ranges={ranges} />
+          <LocomotionItem
+            key={index}
+            name={el.name}
+            ranges={ranges}
+            power={el.power}
+            onResultChange={this.handleResult}
+          />
         ))}
-        <Button style={{}} variant="outlined" onClick={this.calculate}>
-          Calcular
-        </Button>
-        {result ? <h1>{result} Kgs de CO2e </h1> : null}
+
+        {result ? <h1>{result.toFixed(2)} Kgs de CO2e </h1> : null}
       </div>
     );
   }

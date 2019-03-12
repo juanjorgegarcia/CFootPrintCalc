@@ -6,20 +6,31 @@ export default class EletronicItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      amount: "",
-      password: "",
-      hours: 0
+      amount: 0,
+      hours: 0,
+      power: this.props.power,
+      result: 0
       // "DataSource" is some global data source
     };
   }
   onChangeHours = ev => {
-    console.log(this.state.hours);
-    this.setState({ hours: ev.target.value });
-    console.log(this.state.hours);
+    // console.log(this.state.hours);
+    this.setState({ hours: ev.target.value }, this.calculate);
   };
   onChangeAmount = ev => {
-    this.setState({ amount: ev.target.value });
+    this.setState({ amount: ev.target.value }, this.calculate);
   };
+  calculate = () => {
+    const { hours, amount, power } = this.state;
+    const result = (hours * amount * 365 * power * 0.11) / 1000 / 60;
+    this.setState(
+      {
+        result: result
+      },
+      this.props.onResultChange(result)
+    );
+  };
+
   render() {
     let { ranges, name, power } = this.props;
     return (
@@ -54,19 +65,28 @@ export default class EletronicItem extends Component {
             </MenuItem>
           ))}
         </TextField>
+
         <TextField
           style={{
             marginLeft: 10
           }}
-          id="outlined-adornment-weight"
+          select
           variant="outlined"
-          label="Horas de uso"
+          helperText={name}
           value={this.state.hours}
           onChange={this.onChangeHours}
           InputProps={{
-            endAdornment: <InputAdornment position="end">Horas</InputAdornment>
+            startAdornment: (
+              <InputAdornment position="start">Horas</InputAdornment>
+            )
           }}
-        />
+        >
+          {ranges.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
       </div>
     );
   }
