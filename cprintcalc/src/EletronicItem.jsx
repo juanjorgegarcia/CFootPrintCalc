@@ -38,55 +38,65 @@ export default class EletronicItem extends Component {
         className="itemContainer"
         style={{
           display: "flex",
-          justifyContent: "center",
-          alignContent: "center",
+          width: "600px",
+          justifyContent: "space-between",
           flexDirection: "row"
         }}
       >
         <h3>{name}:</h3>
-        <TextField
+        <div
+          className="itemContainer"
           style={{
-            marginLeft: 10
-          }}
-          select
-          variant="outlined"
-          helperText={name}
-          value={this.state.amount}
-          onChange={this.onChangeAmount}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">Qtd.</InputAdornment>
-            )
+            display: "flex",
+            flexDirection: "row"
           }}
         >
-          {ranges.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
+          <TextField
+            style={{
+              marginLeft: 10,
+              width: "150px"
+            }}
+            select
+            variant="outlined"
+            helperText={name}
+            value={this.state.amount}
+            onChange={this.onChangeAmount}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">Qtd.</InputAdornment>
+              )
+            }}
+          >
+            {ranges.map(option => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
 
-        <TextField
-          style={{
-            marginLeft: 10
-          }}
-          select
-          variant="outlined"
-          helperText={name}
-          value={this.state.hours}
-          onChange={this.onChangeHours}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">Horas</InputAdornment>
-            )
-          }}
-        >
-          {ranges.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
+          <TextField
+            style={{
+              marginLeft: 10,
+              width: "150px"
+            }}
+            select
+            variant="outlined"
+            helperText={name}
+            value={this.state.hours}
+            onChange={this.onChangeHours}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">Horas</InputAdornment>
+              )
+            }}
+          >
+            {ranges.map(option => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+        </div>
       </div>
     );
   }

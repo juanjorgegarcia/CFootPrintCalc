@@ -17,7 +17,7 @@ export default class LocomotionItem extends Component {
   };
   calculate = () => {
     const { minutes, power } = this.state;
-    const result = ((minutes * 31) / 60) * power * 365;
+    const result = minutes * 31 * power * 365;
     this.setState(
       {
         result: result
@@ -35,17 +35,17 @@ export default class LocomotionItem extends Component {
         className="itemContainer"
         style={{
           display: "flex",
-          justifyContent: "center",
-          alignContent: "center",
-          flexDirection: "row",
-          padding: 10
+          width: "600px",
+          justifyContent: "space-between",
+          flexDirection: "row"
         }}
       >
         <h3>{name}:</h3>
 
         <TextField
           style={{
-            marginLeft: 10
+            marginLeft: 10,
+            width: "150px"
           }}
           select
           variant="outlined"
@@ -54,7 +54,7 @@ export default class LocomotionItem extends Component {
           onChange={this.onChangeMinutes}
           InputProps={{
             startAdornment: (
-              <InputAdornment position="start">Minutos</InputAdornment>
+              <InputAdornment position="start">Horas</InputAdornment>
             )
           }}
         >

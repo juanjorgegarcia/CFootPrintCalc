@@ -8,7 +8,7 @@ import { FormHelperText } from "@material-ui/core";
 import EletronicItem from "./EletronicItem";
 import LocomotionItem from "./LocomotionItem";
 
-const ranges = [...Array(10).keys()].map(i => ({ value: i, label: i + "" }));
+const ranges = [...Array(11).keys()].map(i => ({ value: i, label: i + "" }));
 
 const EletronicItems = [
   { name: "Ar Condicionado", power: 5 },
@@ -67,7 +67,7 @@ class App extends Component {
           margin: 20
         }}
       >
-        <h1>Eletronicos:</h1>
+        <h1>Uso de Eletronicos no dia:</h1>
         {EletronicItems.map((el, index) => (
           <EletronicItem
             key={index}
@@ -77,7 +77,7 @@ class App extends Component {
             onResultChange={this.handleResult}
           />
         ))}
-        <h1>Locomoção:</h1>
+        <h1>Uso de Locomoção no dia:</h1>
 
         {LocomotionItems.map((el, index) => (
           <LocomotionItem
