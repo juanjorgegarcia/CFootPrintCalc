@@ -11,8 +11,8 @@ import LocomotionItem from "./LocomotionItem";
 const ranges = [...Array(11).keys()].map(i => ({ value: i, label: i + "" }));
 
 const EletronicItems = [
-  { name: "Ar Condicionado", power: 5 },
-  { name: "Aparelho de Som", power: 1500 },
+  { name: "Ar Condicionado", power: 1500 },
+  { name: "Aparelho de Som", power: 150 },
   { name: "Aspirador de Pó", power: 1000 },
   { name: "Bomba d'água", power: 300 },
   { name: "Cafeteira Elétrica", power: 1000 },
