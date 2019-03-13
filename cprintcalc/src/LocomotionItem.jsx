@@ -17,7 +17,7 @@ export default class LocomotionItem extends Component {
   };
   calculate = () => {
     const { minutes, power } = this.state;
-    const result = minutes * 31 * power * 365;
+    const result = minutes * 31 * power * 365 * 22;
     this.setState(
       {
         result: result

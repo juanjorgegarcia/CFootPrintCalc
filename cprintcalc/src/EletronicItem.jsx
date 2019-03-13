@@ -22,7 +22,7 @@ export default class EletronicItem extends Component {
   };
   calculate = () => {
     const { hours, amount, power } = this.state;
-    const result = (hours * amount * 365 * power * 0.11) / 1000 / 60;
+    const result = (hours * amount * 365 * power * 0.11) / 1000;
     this.setState(
       {
         result: result
